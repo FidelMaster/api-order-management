@@ -1,0 +1,23 @@
+{
+    "development": {
+        "username": "programasnetni_dev",
+        "password": "developer2024",
+        "database": "programasnetni_pos_management",
+        "host": "programas.net-ni.com",
+        "dialect": "mysql"
+    },
+    "test": {
+        "username": "root",
+        "password": "123456",
+        "database": "pos_management",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    },
+    "production": {
+        "username": "programasnetni_dev",
+        "password": "developer2024",
+        "database": "programasnetni_pos_management",
+        "host": "programas.net-ni.com",
+        "dialect": "mysql"
+    }
+}
