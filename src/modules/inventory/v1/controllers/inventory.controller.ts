@@ -32,14 +32,19 @@ export const createArticle = async (req: Request, res: Response) => {
     } = req.params;
 
     try {
-        const articles = await ArticleService.addArticle({
+        const inserted = await ArticleService.addArticle({
             supplier_id: Number(supplier_id),
             tax_id: Number(tax_id),
             code,
             description
         });
-        console.log(articles)
-        res.status(200).json({ data: articles });
+
+        if (inserted) {
+            res.status(201).json({ success: true, data: inserted });
+        } else {
+            res.status(400).json({ success: false, message: 'Insercion fallida' });
+        }
+        
     } catch (error) {
         res.status(400).json({ error: error });
     }

@@ -1,4 +1,5 @@
 export interface NewOrderDTO {
+  distribution_route_id: number;
   customer_id: number;
   customer_address_id: number;
   seller_id: number;

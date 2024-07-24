@@ -117,4 +117,7 @@ export default class OrderDetail extends Model<OrderDetail, OrderDetailAttribute
 
   @BelongsTo(() => Article, 'article_id')
   article!: Article;
+  
+  @BelongsTo(() => Order, 'order_id')
+  order!: Order;
 }

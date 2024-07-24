@@ -15,6 +15,10 @@ class OrderService {
         return OrderRepository.findDetailById(order_id);
     }
 
+    async getArticleSummaryByRouteAndState(distribution_route_id: number, state: string) {
+        return OrderRepository.getArticleSummariesByDistributionRouteAndState(distribution_route_id, state);
+    }
+
     async generateOrder(newOrder: NewOrderDTO) {
         return OrderRepository.createOrder(newOrder);
     }

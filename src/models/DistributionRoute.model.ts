@@ -1,4 +1,7 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
+import Order from './Order.model';
+import Customer from './Customer.model';
+import { DistributionRouteAttributes } from './types/DbType';
 
 @Table({
   tableName: 'distribution_routes',
@@ -13,7 +16,7 @@ import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'seque
   ],
 })
 
-export default class DistributionRoute extends Model<DistributionRoute> {
+export default class DistributionRoute extends Model<Customer, DistributionRouteAttributes> {
   @AutoIncrement
   @PrimaryKey
   @Column({
@@ -27,6 +30,13 @@ export default class DistributionRoute extends Model<DistributionRoute> {
     allowNull: false,
   })
   description!: string;
+    
+  @HasMany(() => Order)
+  orders!: Order[];
+  
+  @HasMany(() => Customer)
+  customers!: Customer[];
+
 }
 
 

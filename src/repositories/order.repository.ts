@@ -26,16 +26,45 @@ class OrderRepository {
             include: [
                 {
                     model: Article,
-                    attributes: [ 'description', 'code'], // Especifica las propiedades que deseas obtener
+                    attributes: ['description', 'code'], // Especifica las propiedades que deseas obtener
                 }
             ]
         });
     }
-  
+
+    async getArticleSummariesByDistributionRouteAndState(distribution_route_id: number, state:string) {
+        const results = await OrderDetail.findAll({
+            attributes: [
+                [sequelize.col('article.code'), 'article_code'],
+                'article_description',
+                [sequelize.fn('SUM', sequelize.col('quantity')), 'quantity'],
+                [sequelize.fn('SUM', sequelize.col('total')), 'total'],
+            ],
+            include: [
+                {
+                    model: Article,
+                    attributes: [],
+                },
+                {
+                    model: Order,
+                    attributes: [],
+                    where: {
+                        distribution_route_id: distribution_route_id,
+                        state: state,
+                    },
+                },
+            ],
+            group: ['article.code', 'OrderDetail.article_description'],
+        });
+
+        return results;
+    }
+
     async createOrder(newOrder: NewOrderDTO) {
         const transaction = await sequelize.transaction(); // Start a transaction
         try {
             let order_header = {
+                distribution_route_id: newOrder.distribution_route_id,
                 customer_id: newOrder.customer_id,
                 customer_address_id: 1,
                 seller_id: 1,

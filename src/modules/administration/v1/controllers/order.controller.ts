@@ -29,6 +29,20 @@ export const getOrderById = async (req: Request, res: Response) => {
 }
 
 
+export const getArticleSummaryByRouteAndState = async (req: Request, res: Response) => {
+    const { distribution_route_id } = req.params;
+    try {
+        const data = await OrderService.getArticleSummaryByRouteAndState(Number(distribution_route_id),"A");
+        if (data == null) {
+            res.status(404).json({ message: 'Informacion no encontrada.', data: [] });
+        }
+       
+        res.status(200).json({ data: data });
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+}
+
 export const addOrders = async (req: Request, res: Response) => {
     const newOrder: NewOrderDTO = req.body;
 

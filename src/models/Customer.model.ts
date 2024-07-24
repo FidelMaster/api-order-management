@@ -1,6 +1,7 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { CustomerAttributes } from './types/DbType';
 import CustomerCategory from './CustomerCategory.model';
+import DistributionRoute from './DistributionRoute.model';
 import Order from './Order.model';
 
 @Table({
@@ -41,6 +42,13 @@ export default class Customer extends Model<Customer, CustomerAttributes> {
     allowNull: false,
   })
   customer_category_id!: number;
+
+  @ForeignKey(() => DistributionRoute)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  distribution_route_id!: number;
 
   @Column({
     type: DataType.STRING(255),
@@ -116,7 +124,11 @@ export default class Customer extends Model<Customer, CustomerAttributes> {
   })
   is_tax_exemption!: boolean;
 
-  
+  @BelongsTo(() => DistributionRoute, 'distribution_route_id')
+  distribution_route!: DistributionRoute
+
   @HasMany(() => Order)
   orders!: Order[];
+
+
 }

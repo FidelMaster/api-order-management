@@ -282,6 +282,13 @@ module.exports = {
           model: "customer_categories",
           key: "id",
         },
+      },distribution_route_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "distribution_routes",
+          key: "id",
+        },
       },
       identification: {
         type: Sequelize.STRING,
@@ -657,6 +664,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      distribution_route_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "distribution_routes",
+          key: "id",
+        },
       },
       customer_id: {
         type: Sequelize.INTEGER,

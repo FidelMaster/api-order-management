@@ -19,6 +19,7 @@ export interface ArticleAttributes {
 
 export interface CustomerAttributes {
   id?: number;
+  distribution_route_id: number;
   customer_category_id: number;
   identification: string;
   name: string;
@@ -33,6 +34,12 @@ export interface CustomerAttributes {
   phone: string;
   is_tax_exemption: boolean;
 }
+
+export interface DistributionRouteAttributes {
+  id?: number;
+  description: string;
+}
+
 
 export interface CustomerAddressAttributes {
   id?: number;
@@ -80,6 +87,7 @@ interface TaxAttributes {
 
 export interface OrderAttributes {
   id?: number;
+  distribution_route_id: number;
   customer_id: number;
   customer_address_id: number;
   user_id: number;
@@ -96,6 +104,7 @@ export interface OrderAttributes {
   state: string;
   estimated_delivery_date?: Date | null;
 }
+
 interface DriverAttributes {
   id: number;
   dni: string;

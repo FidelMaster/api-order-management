@@ -25,6 +25,7 @@ export const getCustomerById = async (req: Request, res: Response) => {
 
 export const addCustomer = async (req: Request, res: Response) => {
     const {
+        distribution_route_id,
         customer_category_id,
         identification,
         name,
@@ -43,6 +44,7 @@ export const addCustomer = async (req: Request, res: Response) => {
     try {
 
         const inserted = await CustomerService.addCustomer({
+            distribution_route_id,
             customer_category_id,
             identification,
             name,

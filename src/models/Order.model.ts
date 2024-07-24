@@ -1,10 +1,12 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import Customer from './Customer.model';
 import CustomerAddress from './CustomerAddress.model';
+import DistributionRoute from './DistributionRoute.model';
 import User from './User.model';
 import Seller from './Seller.model';
 
 import { OrderAttributes } from './types/DbType';
+import OrderDetail from './OrderDetail.model';
 
 @Table({
   tableName: 'orders',
@@ -60,6 +62,13 @@ export default class Order extends Model<Order, OrderAttributes> {
     allowNull: false,
   })
   customer_address_id!: number;
+
+  @ForeignKey(() => DistributionRoute)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  distribution_route_id!: number;
 
   @ForeignKey(() => Seller)
   @Column({
@@ -152,4 +161,11 @@ export default class Order extends Model<Order, OrderAttributes> {
 
   @BelongsTo(() => CustomerAddress, 'customer_address_id')
   customer_address!: CustomerAddress;
+
+  @BelongsTo(() => DistributionRoute, 'distribution_route_id')
+  distribution_route!: DistributionRoute
+
+  @HasMany(() => OrderDetail)
+  order_details!: OrderDetail[];
+
 }
