@@ -2,8 +2,16 @@ import ArticleRepository from '../../../../repositories/article.repository';
 import { ArticleAttributes } from "../../../../models/types/DbType";
 
 class ArticleService {
-  async getAllArticle(){
+  async getAllArticle() {
     return ArticleRepository.getAll();
+  }
+  
+  async getArticleById(id: number) {
+    return ArticleRepository.findById(id);
+  }
+
+  async getPriceListByArticleId(id: number) {
+    return ArticleRepository.findPriceListByArticleId(id);
   }
 
   async getArticlesByWarehouseAndListPrice(warehouse_id: number, list_price_id: number) {

@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
+import Article from './Article.model';
 
 @Table({
   tableName: 'taxes',
@@ -32,5 +33,8 @@ export default class Tax extends Model<Tax> {
     type: DataType.FLOAT,
     allowNull: false,
   })
-  percentage!: string;
+  percentage!: number;
+
+  @HasMany(() => Article)
+  Articles!: Article[];
 }

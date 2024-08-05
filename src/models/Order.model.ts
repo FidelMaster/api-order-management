@@ -24,6 +24,11 @@ import OrderDetail from './OrderDetail.model';
       fields: ['customer_id'],
     },
     {
+      name: 'distribution_route_id',
+      using: 'BTREE',
+      fields: ['distribution_route_id'],
+    },
+    {
       name: 'customer_address_id',
       using: 'BTREE',
       fields: ['customer_address_id'],
@@ -155,6 +160,12 @@ export default class Order extends Model<Order, OrderAttributes> {
     allowNull: true,
   })
   estimated_delivery_date!: Date;
+
+  @BelongsTo(() => User, 'user_id')
+  user!: User;
+
+  @BelongsTo(() => Seller, 'seller_id')
+  seller!: Seller;
 
   @BelongsTo(() => Customer, 'customer_id')
   customer!: Customer;

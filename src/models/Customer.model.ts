@@ -127,6 +127,9 @@ export default class Customer extends Model<Customer, CustomerAttributes> {
   @BelongsTo(() => DistributionRoute, 'distribution_route_id')
   distribution_route!: DistributionRoute
 
+  @BelongsTo(() => CustomerCategory, 'customer_category_id')
+  customer_category!: CustomerCategory
+
   @HasMany(() => Order)
   orders!: Order[];
 

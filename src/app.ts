@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import authRouter from './modules/authentication/v1/routes/auth.route';
 import adminRouter from './modules/administration/v1/routes/administration.route';
 import inventoryRouter from './modules/inventory/v1/routes/inventory.route';
+import billingRouter from './modules/billing/v1/routes/billing.route';
 //import orderRoutes from './routes/orderRoutes';
 import { checkAPIKeyInRequestHeader } from './shared/middlewares/auth-middleware';
 import sequelize from './config/database';
@@ -24,6 +25,7 @@ app.use(checkAPIKeyInRequestHeader);
 app.use('/api/auth', authRouter);
 app.use('/api/administration', adminRouter);
 app.use('/api/inventory', inventoryRouter);
+app.use('/api/billing', billingRouter);
 
 // Synchronize all models with the database
 sequelize.sync({ force: false }).then(() => {

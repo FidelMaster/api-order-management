@@ -14,6 +14,10 @@ class WareHouseService {
     return WarehouseRepository.findAllArticleByWarehouseId(warehouse_id);
   }
 
+  async getWarehouseByArticleId(article_id: number) {
+    return WarehouseRepository.findAllWarehouseByArticleId(article_id);
+  }
+
   async createWarehouse(warehouse: WarehouseAttributes) {
     return WarehouseRepository.createWarehouse(warehouse);
   }

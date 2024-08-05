@@ -1,5 +1,6 @@
 import { Table, Column, Model, DataType, PrimaryKey, HasMany, AutoIncrement, ForeignKey } from 'sequelize-typescript';
 import PriceListDetail from './PriceListDetail.model';
+import { PriceListAttributes } from './types/DbType';
 
 @Table({
   tableName: 'price_lists',
@@ -14,7 +15,7 @@ import PriceListDetail from './PriceListDetail.model';
   ],
 })
 
-export default class PriceList extends Model<PriceList> {
+export default class PriceList extends Model<PriceList, PriceListAttributes> {
   @AutoIncrement
   @PrimaryKey
   @Column({

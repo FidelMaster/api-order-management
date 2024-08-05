@@ -9,12 +9,36 @@ export interface UserAttributes {
   is_active: boolean;
 }
 
+export interface BatchAttributes {
+  id: number;
+  supplier_id: number;
+  article_id: number;
+  entered_quantity: number;
+  admission_date: Date;
+  expire_date: Date;
+}
+
+export interface BatchArticleAttributes {
+  id: number;
+  batch_id: number;
+  warehouse_id: number;
+  article_id: number;
+  available_quantity: number;
+  reserved_quantity: number;
+  expire_quantity: number;
+}
+
 export interface ArticleAttributes {
   id?: number;
   supplier_id: number;
   tax_id: number;
   code: string;
   description: string;
+  type_article?: string;
+  use_batch?: boolean;
+  use_inventory?: boolean;
+  last_output_date?: Date;
+  reorder_point: number;
 }
 
 export interface CustomerAttributes {
@@ -67,8 +91,8 @@ interface SellerAttributes {
   is_active: boolean;
 }
 
-interface SupplierAttributes {
-  id: number;
+export interface SupplierAttributes {
+  id?: number;
   identification: string;
   name: string;
   contact_dni: string;
@@ -132,12 +156,18 @@ export interface OrderDetailAttributes {
   total: number;
 }
 
-interface PriceListDetailAttributes {
-  id: number;
+export interface PriceListAttributes {
+  id?: number;
+  description: string; 
+}
+
+export interface PriceListDetailAttributes {
+  id?: number;
   price_list_id: number;
   article_id: number;
   price: number;
 }
+
 
 export interface WarehouseAttributes {
   id?: number;

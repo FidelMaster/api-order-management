@@ -1,5 +1,6 @@
 import Article from "../models/Article.model";
 import WarehouseArticle from "../models/WarehouseArticle.model";
+import PriceList from "../models/PriceList.model";
 import PriceListDetail from "../models/PriceListDetail.model";
 import { ArticleAttributes } from "../models/types/DbType";
 
@@ -20,7 +21,7 @@ class ArticleRepository {
                 {
                     model: WarehouseArticle,
                     where: { warehouse_id: warehouse_id },
-                    attributes: [['quantity', 'quantity'],['reserved_quantity', 'reserved_quantity'] ],
+                    attributes: [['quantity', 'quantity'], ['reserved_quantity', 'reserved_quantity']],
 
                 },
                 {
@@ -31,7 +32,7 @@ class ArticleRepository {
                 },
             ],
         });
- 
+
 
         const transformedArticles = articles.map(article => {
             // Extracting the first entry from the warehouseArticles and priceListDetails arrays
@@ -43,12 +44,26 @@ class ArticleRepository {
                 article_code: article.code,
                 article_description: article.description,
                 available: warehouseArticle ? warehouseArticle.quantity : null,
-                reserved_quantity:  warehouseArticle ? warehouseArticle.reserved_quantity : null,
+                reserved_quantity: warehouseArticle ? warehouseArticle.reserved_quantity : null,
                 price: priceListDetail ? priceListDetail.price : null,
             };
         });
-        
+
         return transformedArticles;
+    }
+
+    async findPriceListByArticleId(article_id: number) {
+        return PriceListDetail.findAll({
+            where: {
+                article_id: article_id
+            },
+            include: [
+                {
+                    model: PriceList,
+                    attributes: ['description'], // Especifica las propiedades que deseas obtener
+                }
+            ]
+        });
     }
 
     async findById(id: number) {

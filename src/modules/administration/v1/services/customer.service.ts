@@ -7,6 +7,10 @@ class CustomerService {
         return CustomerRepository.getAll();
     }
 
+    async getAllCustomerCategory() {
+        return CustomerRepository.getAllCustomerCategories();
+    }
+
     async getCustomerById(id: number) {
         return CustomerRepository.findById(id);
     }

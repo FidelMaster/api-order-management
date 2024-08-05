@@ -1,6 +1,7 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript';
 import PriceList from './PriceList.model'; // Importa el modelo PriceList
 import Article from './Article.model'; // Importa el modelo Article
+import { PriceListDetailAttributes } from './types/DbType';
 
 @Table({
   tableName: 'price_list_detail',
@@ -11,7 +12,7 @@ import Article from './Article.model'; // Importa el modelo Article
     { name: 'article_id', using: 'BTREE', fields: ['article_id'] },
   ],
 })
-export default class PriceListDetail extends Model<PriceListDetail> {
+export default class PriceListDetail extends Model<PriceListDetail, PriceListDetailAttributes> {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
@@ -34,15 +35,16 @@ export default class PriceListDetail extends Model<PriceListDetail> {
   })
   article_id!: number;
 
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: false,
+  })
+  price!: number;
+
   @BelongsTo(() => Article, 'article_id')
   article!: Article;
 
   @BelongsTo(() => PriceList, 'price_list_id')
   priceList!: PriceList;
 
-  @Column({
-    type: DataType.FLOAT,
-    allowNull: false,
-  })
-  price!: number;
 }

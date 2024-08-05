@@ -1,4 +1,6 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
+import { SupplierAttributes } from './types/DbType';
+import Article from './Article.model';
 
 @Table({
   tableName: 'suppliers',
@@ -12,7 +14,7 @@ import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'seque
     },
   ],
 })
-export default class Supplier extends Model<Supplier> {
+export default class Supplier extends Model<Supplier, SupplierAttributes> {
   @AutoIncrement
   @PrimaryKey
   @Column({
@@ -68,4 +70,7 @@ export default class Supplier extends Model<Supplier> {
     allowNull: false,
   })
   phone!: string;
+
+  @HasMany(() => Article)
+  articles!: Article[];
 }

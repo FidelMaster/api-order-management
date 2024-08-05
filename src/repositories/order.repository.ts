@@ -1,4 +1,6 @@
 import Article from "../models/Article.model";
+import Customer from "../models/Customer.model";
+import DistributionRoute from "../models/DistributionRoute.model";
 import Order from "../models/Order.model";
 import OrderDetail from "../models/OrderDetail.model";
 import sequelize from "../config/database";
@@ -11,7 +13,26 @@ class OrderRepository {
     }
 
     async findById(id: number) {
-        return Order.findByPk(id);
+        let orderHeader = Order.findOne({
+            where: { id: id },
+            include: [
+                {
+                    model: Customer,
+                    attributes: ['name', 'address'], // Especifica las propiedades que deseas obtener
+                },
+                {
+                    model: DistributionRoute,
+                    attributes: ['description'], // Especifica las propiedades que deseas obtener
+                }
+            ]
+        });
+
+        let orderItems = this.findDetailById(id);
+
+        return {
+            order: orderHeader,
+            items: orderItems
+        };
     }
 
     async findByUser(user_id: number) {
@@ -32,7 +53,7 @@ class OrderRepository {
         });
     }
 
-    async getArticleSummariesByDistributionRouteAndState(distribution_route_id: number, state:string) {
+    async getArticleSummariesByDistributionRouteAndState(distribution_route_id: number, state: string) {
         const results = await OrderDetail.findAll({
             attributes: [
                 [sequelize.col('article.code'), 'article_code'],

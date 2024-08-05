@@ -1,4 +1,5 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript';
+import Customer from './Customer.model';
 
 @Table({
   tableName: 'customer_categories',
@@ -27,4 +28,7 @@ export  default  class CustomerCategory extends Model<CustomerCategory> {
     allowNull: false,
   })
   description!: string;
+
+  @HasMany(() => Customer)
+  customer!: Customer[];
 }

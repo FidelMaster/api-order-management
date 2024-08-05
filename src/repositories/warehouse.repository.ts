@@ -20,7 +20,21 @@ class WarehouseRepository {
             include: [
                 {
                     model: Article,
-                    attributes: ['name', 'code'], // Especifica las propiedades que deseas obtener
+                    attributes: ['description', 'code'], // Especifica las propiedades que deseas obtener
+                }
+            ]
+        });
+    }
+
+    async findAllWarehouseByArticleId(article_id: number) {
+        return WarehouseArticle.findAll({
+            where: {
+                article_id: article_id
+            },
+            include: [
+                {
+                    model: Warehouse,
+                    attributes: ['name'], // Especifica las propiedades que deseas obtener
                 }
             ]
         });
@@ -40,7 +54,14 @@ class WarehouseRepository {
     }
 
     async addArticle(article: WarehouseArticleAttributes) {
-        return WarehouseArticle.create(article);
+        let existingArticle = await this.findArticleByWarehouseIdAndArticleId(article.warehouse_id, article.article_id);
+        if (existingArticle) {
+            existingArticle.quantity = article.quantity;
+            await existingArticle.save();
+            return existingArticle;
+        } else {
+            return WarehouseArticle.create(article);
+        }
     }
 
 }

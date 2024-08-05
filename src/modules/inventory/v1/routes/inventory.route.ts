@@ -1,12 +1,16 @@
 import express from 'express';
-import { getAllArticle, getArticlesByWarehouseAndListPrice } from '../controllers/inventory.controller';
-import { getAllWarehouse, getWarehouseById, getArticleByWarehouse, createWarehouse, addArticleToWarehouse } from '../controllers/warehouse.controller';
+import { getAllArticle, getArticleById, getWarehouseByArticleId, getPriceListByArticleId, createArticle, getArticlesByWarehouseAndListPrice } from '../controllers/inventory.controller';
+import { getAllWarehouse, getWarehouseById, getArticleByWarehouse,  createWarehouse, addArticleToWarehouse } from '../controllers/warehouse.controller';
 
 const inventoryRouter = express.Router();
 
 inventoryRouter.get('/v1/articles', getAllArticle);
-inventoryRouter.get('/v1/warehouses/:warehouse_id/list-prices/:list_price_id/articles', getArticlesByWarehouseAndListPrice);
+inventoryRouter.get('/v1/articles/:id', getArticleById);
+inventoryRouter.post('/v1/articles', createArticle);
+inventoryRouter.get('/v1/articles/:id/warehouses', getWarehouseByArticleId);
+inventoryRouter.get('/v1/articles/:id/list-prices', getPriceListByArticleId);
 
+inventoryRouter.get('/v1/warehouses/:warehouse_id/list-prices/:list_price_id/articles', getArticlesByWarehouseAndListPrice);
 inventoryRouter.get('/v1/warehouses', getAllWarehouse);
 inventoryRouter.get('/v1/warehouses/:warehouse_id', getWarehouseById);
 inventoryRouter.get('/v1/warehouses/:warehouse_id/articles', getArticleByWarehouse);

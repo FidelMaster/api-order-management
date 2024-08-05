@@ -1,10 +1,15 @@
 import Customer from "../models/Customer.model";
 import CustomerAddress from "../models/CustomerAddress.model";
+import CustomerCategory from "../models/CustomerCategory.model";
 import { CustomerAttributes, CustomerAddressAttributes } from "src/models/types/DbType";
 
 class CustomerRepository {
     async getAll() {
         return Customer.findAll();
+    }
+
+    async getAllCustomerCategories() {
+        return CustomerCategory.findAll();
     }
 
     async findById(id: number) {

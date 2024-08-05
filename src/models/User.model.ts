@@ -1,6 +1,7 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
 import { UserAttributes } from './types/DbType';
 import Rol from './Rol.model';
+import Order from './Order.model';
 
 @Table({
   tableName: 'users',
@@ -69,6 +70,9 @@ export default class User extends Model<User, UserAttributes> {
     defaultValue: true,
   })
   is_active!: boolean;
+
+  @HasMany(() => Order)
+  orders!: Order[];
 }
 
  

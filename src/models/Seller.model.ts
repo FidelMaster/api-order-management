@@ -1,5 +1,6 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, ForeignKey, HasMany} from 'sequelize-typescript';
 import User from './User.model';
+import Order from './Order.model';
 
 @Table({
   tableName: 'sellers',
@@ -77,4 +78,7 @@ export default class Seller extends Model<Seller> {
     defaultValue: true,
   })
   is_active!: boolean;
+
+  @HasMany(() => Order)
+  orders!: Order[];
 }

@@ -11,6 +11,15 @@ export const getAllCustomers = async (req: Request, res: Response) => {
     }
 };
 
+export const getAllCustomerCategory = async (req: Request, res: Response) => {
+    try {
+        const data = await CustomerService.getAllCustomerCategory();
+        res.status(200).json({ data: data });
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
 export const getCustomerById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
